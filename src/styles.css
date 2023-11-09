@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-image: url('src/assets/10316.jpg'); /* Update the path to your image */
+  background-size: cover; /* Adjust as needed */
+  background-repeat: no-repeat;
+}
+h1{
+  color: deepskyblue;
+  font-size: 16px;
+  text-align: center;
+  padding-top: 300px;
+}
+#patient{
+  color: deepskyblue;
+  font-size: 20px;
+  text-align: center;
+  border: black;
+  border: 4px;
+  padding-left: 20px;
+  margin-right: 20px;
+}
+#doctor{
+  color: deepskyblue;
+  font-size: 20px;
+  text-align: center;
+  border: black;
+  border: 4px;
+}
