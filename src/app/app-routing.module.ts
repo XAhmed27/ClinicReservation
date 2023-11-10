@@ -7,8 +7,8 @@ import {HomedoctorComponent} from "./homedoctor/homedoctor.component";
 import {AppointmentComponent} from "./Components/appointment/appointment.component";
 import {MessagesComponent} from "./Components/messages/messages.component";
 import {HomepatientComponent} from "./Components/homepatient/homepatient.component";
-import {ChoosedoctorComponent} from "./Components/homepatient/choosedoctor/choosedoctor.component";
 import {ViewAppointmentComponent} from "./Components/homepatient/view-appointment/view-appointment.component";
+import {ChoosedoctorComponent} from "./Components/homepatient/choosedoctor/choosedoctor.component";
 
 
 const routes: Routes = [
@@ -18,9 +18,13 @@ const routes: Routes = [
   {path:'doctor',component:HomedoctorComponent},
   {path:'appointment',component:AppointmentComponent},
   {path:'messages',component:MessagesComponent},
-  {path:'patient',component:HomepatientComponent},
-  {path:'choosedoctor',component:ChoosedoctorComponent},
-  {path:'viewappointments',component:ViewAppointmentComponent}
+  {path:'patient',component:HomepatientComponent,
+  children:[
+
+  ]
+  },
+  {path:'choose-doctor',component:ChoosedoctorComponent},
+  {path:'view-appointments',component:ViewAppointmentComponent}
  ]
 @NgModule({
   declarations: [],
