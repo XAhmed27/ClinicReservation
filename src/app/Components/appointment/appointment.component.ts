@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.css']
 })
-export class AppointmentComponent {currentAppointments: any[] = []; // Assuming you have an array for current appointments
+export class AppointmentComponent {
+  currentAppointments: any[] = []; // Assuming you have an array for current appointments
   newAppointments: any[] = []; // Assuming you have an array for new appointments
   selectedAppointment: any;
   selectedDate?: string;

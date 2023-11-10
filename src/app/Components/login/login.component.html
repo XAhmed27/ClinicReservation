@@ -16,12 +16,12 @@
     </div>
     <div class="row">
       <label for="user">user:</label>
-      <select id="user" user="user">
+      <select id="user" user="user" #role (change)="onRoleChange(role.value)">
         <option value="patient">patient</option>
         <option value="doctor">doctor</option>
       </select>
     </div>
-    <button class="btn mt-3">Login</button>
+    <button class="btn mt-3"(click) ="login()">Login</button>
   </form>
   <div class="text-center fs-6">
     <a href="#"style="color: blue">Forget password?</a> or <a href="#"style="color: blue" routerLink="/signup">Sign up</a>
