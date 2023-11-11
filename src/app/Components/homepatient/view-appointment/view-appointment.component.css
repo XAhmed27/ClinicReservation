@@ -4,6 +4,8 @@
   flex-direction: column;
   align-items: center;
   margin-top: 50px;
+  padding: 20px;
+
 }
 
 ul {
@@ -18,3 +20,19 @@ li {
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional box shadow */
 }
+.cancel-button {
+  padding: 5px 10px; /* Adjust the padding as needed */
+  margin-right: 10px; /* Adjust the margin as needed */
+  background-color: #ff6262; /* Red color, you can change it */
+  color: #fff; /* White text color */
+  border: none;
+  cursor: pointer;
+}
+.edit-button {
+  padding: 5px 10px; /* Adjust the padding as needed */
+  background-color: #5cb85c; /* Green color, you can change it */
+  color: #fff; /* White text color */
+  border: none;
+  cursor: pointer;
+}
+
