@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Observable, of} from "rxjs";
 import {Slot} from "../../Models/slots";
+import * as stream from "stream";
 
 @Component({
   selector: 'app-slot',
