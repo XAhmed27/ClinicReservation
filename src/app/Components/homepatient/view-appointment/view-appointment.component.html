@@ -1,10 +1,38 @@
 <!-- view-appointment.component.html -->
+<div>
+
+</div>
 <div class="appointments-container">
   <h2>My Appointments</h2>
   <ul>
-    <li *ngFor="let appointment of userAppointments">
-      {{ appointment.date }} - {{ appointment.time }} with  {{ appointment.doctor }}
-      <button (click)="cancelAppointment(appointment)">Cancel</button>
+    <li *ngFor="let appointment of userAppointment" >
+         <div *ngIf="appointment.status=='created'">
+           {{ appointment.fulldate }} -  with  {{ appointment.doctorname }}
+           <button class="cancel-button" (click)="cancelAppointment(appointment)">Cancel</button>
+           <button class="edit-button" (click)="editAppointment(appointment)">edit</button>
+         </div>
+      <div *ngIf="appointment.status=='cancelled'">
+        {{ appointment.fulldate }} -  with  {{ appointment.doctorname }} is cancelled
+      </div>
+
     </li>
+
   </ul>
+
 </div>
+
+<!--<div *ngIf="selectedAppointment">-->
+<!--  <h3>Edit Appointment</h3>-->
+<!--  <form (submit)="saveEditedAppointment()">-->
+<!--    <label>Date:</label>-->
+<!--    <input [(ngModel)]="selectedAppointment.date" name="date" required>-->
+
+<!--    <label>Time:</label>-->
+<!--    <input [(ngModel)]="selectedAppointment.time" name="time" required>-->
+
+<!--    <label>Doctor:</label>-->
+<!--    <input [(ngModel)]="selectedAppointment.doctor" name="doctor" required>-->
+
+<!--    <button type="submit">Save</button>-->
+<!--  </form>-->
+<!--</div>-->
