@@ -27,7 +27,6 @@
     </tbody>
   </table>
 
-  <!-- Add Appointment Button -->
 
   <!-- New Appointments Table -->
   <h2 class="mt-4 mb-3">New Appointments</h2>
@@ -58,12 +57,12 @@
 
   <!-- Confirm Appointment Section -->
   <div *ngIf="selectedAppointment" class="mt-4">
-    <label for="datepicker" class="mr-2">Select Date:</label>
+    <label for="date" class="mr-2">Select Date:</label>
     <label for="startTimepicker" class="mr-2">Select Start Time:{{selectedStartTime}}</label>
     <input type="time" id="startTimepicker" [(ngModel)]="selectedStartTime" class="form-control mb-2" />
-    <label for="endTimepicker" class="mr-2">Select End Time:{{selectedEndTime}</label>
-    <input type="time" id="endTimepicker" [(ngModel)]="selectedEndTime" class="form-control mb-2" />
-    <input type="date" id="datepicker" [(ngModel)]="selectedDate" class="form-control mb-2" />
-    <button class="btn btn-success" (click)="confirmAppointment()">Confirm Appointment</button>
+    <label for="endTime" class="mr-2">Select End Time:{{selectedEndTime}</label>
+    <input type="time" id="endTime" [(ngModel)]="selectedEndTime" class="form-control mb-2" />
+    <input type="date" id="date" [(ngModel)]="selectedDate" class="form-control mb-2" />
+    <button class="btn btn-success" (click)="addSlot()">Confirm Appointment</button>
   </div>
 </div>

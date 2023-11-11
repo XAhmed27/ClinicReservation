@@ -1,19 +1,30 @@
 import { Component } from '@angular/core';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
   styleUrls: ['./appointment.component.css']
 })
-export class AppointmentComponent {currentAppointments: any[] = []; // Assuming you have an array for current appointments
+export class AppointmentComponent {
+  currentAppointments: any[] = []; // Assuming you have an array for current appointments
   newAppointments: any[] = []; // Assuming you have an array for new appointments
   selectedAppointment: any;
   selectedDate?: string;
   selectedStartTime?: string;
   selectedEndTime?: string;
   i?:number;
+  private apiUrl = 'http://localhost:3000/slot';
+  date?:string;
+  hours?:string;
+  time?:string;
+  body: any = {};
+
+  constructor(private http: HttpClient) {
+  }
 
   addAppointment() {
+
     // Implement the logic to add a new appointment with selected time
     const newAppointment = {
       date: this.selectedDate,
@@ -68,6 +79,39 @@ export class AppointmentComponent {currentAppointments: any[] = []; // Assuming 
       this.selectedDate = '';
       this.selectedStartTime = '';
       this.selectedEndTime = '';
+    }
+  }
+  addSlot() {
+
+
+
+    // Get the token from localStorage or any other secure storage
+    const token = localStorage.getItem('token');
+
+    // Check if the token is available
+    if (token) {
+      // Set the Authorization header with the token
+      const headers = new HttpHeaders().set('Authorization', token);
+
+
+      console.log(this.selectedDate);
+      console.log(this.selectedStartTime);
+      console.log(this.selectedEndTime);
+      console.log(this.selectedAppointment);
+      // Make the HTTP request with headers
+      this.http.post(this.apiUrl, {
+        "date":this.date,
+        "hours": this.hours,
+      }, { headers }).subscribe(
+        (data: any) => {
+          console.log(data);
+        },
+        (error) => {
+          console.error("Error:", error);
+        }
+      );
+    } else {
+      console.error("Token not available. Please log in.");
     }
   }
 }
