@@ -8,25 +8,21 @@
     <thead class="thead-dark">
     <tr>
       <th scope="col">Date</th>
-      <th scope="col">Start Time</th>
-      <th scope="col">End Time</th>
+      <th scope="col">Hours</th>
+      <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let appointment of currentAppointments;let i = index">
       <td>{{ appointment.date }}</td>
-      <td>{{ appointment.startTime }}</td>
-      <td>{{ appointment.endTime }}</td>
+      <td>{{ appointment.hours }}</td>
       <td>
         <button class="btn btn-primary" (click)="EditAppointment(appointment)">Edit</button>
-      </td>
-      <td>
-           <button class="btn btn-danger" (click)="deleteAppointment(i)">Delete</button>
+        <button class="btn btn-danger" (click)="deleteAppointment(i)">Delete</button>
       </td>
     </tr>
     </tbody>
   </table>
-
 
   <!-- New Appointments Table -->
   <h2 class="mt-4 mb-3">New Appointments</h2>
@@ -34,16 +30,14 @@
     <thead class="thead-dark">
     <tr>
       <th scope="col">Date</th>
-      <th scope="col">Start Time</th>
-      <th scope="col">End Time</th>
+      <th scope="col">Hours</th>
       <th scope="col">Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let appointment of newAppointments">
       <td>{{ appointment.date }}</td>
-      <td>{{ appointment.startTime }}</td>
-      <td>{{ appointment.endTime }}</td>
+      <td>{{ appointment.hours }}</td>
       <td>
         <button class="btn btn-primary" (click)="selectAppointment(appointment)">Select</button>
       </td>
@@ -58,10 +52,8 @@
   <!-- Confirm Appointment Section -->
   <div *ngIf="selectedAppointment" class="mt-4">
     <label for="date" class="mr-2">Select Date:</label>
-    <label for="startTimepicker" class="mr-2">Select Start Time:{{selectedStartTime}}</label>
-    <input type="time" id="startTimepicker" [(ngModel)]="selectedStartTime" class="form-control mb-2" />
-    <label for="endTime" class="mr-2">Select End Time:{{selectedEndTime}</label>
-    <input type="time" id="endTime" [(ngModel)]="selectedEndTime" class="form-control mb-2" />
+    <label for="startTimepicker" class="mr-2">Select Hours:{{selectedHours}}</label>
+    <input type="time" id="startTimepicker" [(ngModel)]="selectedHours" class="form-control mb-2" />
     <input type="date" id="date" [(ngModel)]="selectedDate" class="form-control mb-2" />
     <button class="btn btn-success" (click)="addSlot()">Confirm Appointment</button>
   </div>

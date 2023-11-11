@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
-import {ListofdoctorsComponent} from "../listofdoctors/listofdoctors.component";
+import {Component} from '@angular/core';
 import {SlotComponent} from "../../slot/slot.component";
 import {Doctor} from "../../../Models/doctor";
-import {Slot} from "../../../Models/slots";
 import {Observable} from "rxjs";
 import {Reservedappointment} from "../reservedappointment/reservedappointment";
+import {HttpClient} from "@angular/common/http";
+import {GetAllDoctorsResponseBody, Result} from "../../../Models/GetAllDoctorsResponseBody";
+import {UserUtils} from "../../../user.utils";
+import {DoctorSlotBody, Slot} from "../../../Models/get.doctors.slots.response.body";
+
 const appointments = [];
+
 @Component({
   selector: 'app-choosedoctor',
   templateUrl: './choosedoctor.component.html',
@@ -14,25 +18,25 @@ const appointments = [];
 
 
 export class ChoosedoctorComponent {
-  doctors?: Doctor[] ;
+  doctors?: Result[];
   selectedDoctor?: Doctor;
-  slots?: Slot[];
-  doctorService?:ListofdoctorsComponent;
-  slotService?:SlotComponent;
+  slots: Slot[] = [];
+  slotService?: SlotComponent;
   reservationStatus: boolean = false;
 
-  constructor( ) {
-    this.doctorService =new  ListofdoctorsComponent();
+  constructor(private http: HttpClient) {
     this.slotService = new SlotComponent();
     this.loadDoctors();
   }
 
 
-
   loadDoctors(): void {
-    this.doctorService!.getDoctors().subscribe((doctors) => {
-      this.doctors = doctors;
-    });
+    this.http.get<GetAllDoctorsResponseBody>('http://localhost:3000/user/doctors').subscribe(
+      (data) => {
+        console.log(data);
+        this.doctors = data.result;
+      }
+    );
   }
 
   onSelectDoctor(doctor: Doctor): void {
@@ -41,27 +45,32 @@ export class ChoosedoctorComponent {
   }
 
   loadSlots(doctorId: number): void {
-    this.slotService!.getSlots(doctorId).subscribe((slots) => {
-      this.slots = slots;
-    });
+    console.log(doctorId)
+    this.http.get<DoctorSlotBody>(UserUtils.baseUrl + "/slot/doctorslots/" + doctorId, {
+      params: {
+        "Authorization": "hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoia2Vrb0BnbWFpbC5jb20iLCJpYXQiOjE2OTk3MjUxMDIsImV4cCI6MTczMTI4MjcwMn0.Wq44REY-m0kE6Ku2Fs3g_ADnkfImihYBZ-NliuMopEQ"
+      }
+    }).subscribe(
+      (data) => {
+        console.log(data)
+        this.slots = data;
+      }
+    );
   }
-  reserveSlot(slot: any) {
-    if (!slot.isReserved) {
-      const doctorAppointment = {
-        date: slot.date,
-        startTime: slot.startTime,
-        endTime: slot.endTime,
-        doctor: this.selectedDoctor,
-      };
 
-      console.log("Slot is  reserved succussfully");
+  reserveSlot(slot: Slot) {
 
-
-
-    } else {
-      this.reservationStatus = false;
-      console.log("Slot is already reserved");
-    }
+    this.http.post(UserUtils.baseUrl + "/reserve", {
+      "keys": slot.key
+    },{
+      params:{
+        "Authorization":"hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoia2Vrb0BnbWFpbC5jb20iLCJpYXQiOjE2OTk3MjUxMDIsImV4cCI6MTczMTI4MjcwMn0.Wq44REY-m0kE6Ku2Fs3g_ADnkfImihYBZ-NliuMopEQ"
+      }
+    }).subscribe(
+      (data)=>{
+        console.log(data);
+      }
+    )
   }
 
 }

@@ -1,3 +1,3 @@
-class UserUtils{
-  
+export class UserUtils {
+  static baseUrl = "http://localhost:3000"
 }

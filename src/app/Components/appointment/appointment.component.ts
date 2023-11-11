@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {DoctorSlotResponse} from "../../Models/doctorSlotResponse";
 
 @Component({
   selector: 'app-appointment',
@@ -7,12 +8,14 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
   styleUrls: ['./appointment.component.css']
 })
 export class AppointmentComponent {
-  currentAppointments: any[] = []; // Assuming you have an array for current appointments
-  newAppointments: any[] = []; // Assuming you have an array for new appointments
+  currentAppointments: DoctorSlotResponse[] = []; // Assuming you have an array for current appointments
+  newAppointments: DoctorSlotResponse[] = []; // Assuming you have an array for new appointments
   selectedAppointment: any;
   selectedDate?: string;
-  selectedStartTime?: string;
+  selectedHours?: string;
+/*
   selectedEndTime?: string;
+*/
   i?:number;
   private apiUrl = 'http://localhost:3000/slot';
   date?:string;
@@ -28,23 +31,21 @@ export class AppointmentComponent {
     // Implement the logic to add a new appointment with selected time
     const newAppointment = {
       date: this.selectedDate,
-      startTime: this.selectedStartTime,
-      endTime: this.selectedEndTime
+      Hours: this.selectedHours,
+
     };
     this.newAppointments.push(newAppointment);
 
-    // Reset the selected date and times after adding the appointment
     this.selectedDate = '';
-    this.selectedStartTime = '';
-    this.selectedEndTime = '';
+    this.selectedHours = '';
   }
   EditAppointment(appointment: any) {
     // Check if required properties are set before editing the appointment
-    if (this.selectedDate && this.selectedStartTime && this.selectedEndTime) {
+    if (this.selectedDate && this.selectedHours) {
       // Update the properties of the existing appointment
       appointment.date = this.selectedDate;
-      appointment.startTime = this.selectedStartTime;
-      appointment.endTime = this.selectedEndTime;
+      appointment.Hours = this.selectedHours;
+
 
 
     }
@@ -67,8 +68,10 @@ export class AppointmentComponent {
     // update the selected appointment with the selected date
     if (this.selectedDate) {
       this.selectedAppointment.date = this.selectedDate;
-      this.selectedAppointment.startTime=this.selectedStartTime;
+      this.selectedAppointment.startTime=this.selectedHours;
+/*
       this.selectedAppointment.endTime=this.selectedEndTime;
+*/
       // fix the confliction with the edit function
       const index = this.currentAppointments.indexOf(this.selectedAppointment);
       if (index !== -1) {
@@ -77,8 +80,7 @@ export class AppointmentComponent {
       this.currentAppointments.push(this.selectedAppointment);
       //reset everything
       this.selectedDate = '';
-      this.selectedStartTime = '';
-      this.selectedEndTime = '';
+      this.selectedHours = '';
     }
   }
   addSlot() {
@@ -95,16 +97,20 @@ export class AppointmentComponent {
 
 
       console.log(this.selectedDate);
-      console.log(this.selectedStartTime);
-      console.log(this.selectedEndTime);
+      console.log(this.selectedHours);
       console.log(this.selectedAppointment);
       // Make the HTTP request with headers
       this.http.post(this.apiUrl, {
-        "date":this.date,
-        "hours": this.hours,
-      }, { headers }).subscribe(
+        "date":this.selectedDate,
+        "hours": this.selectedHours,
+      }, {
+        params:{
+          "Authorization":"hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDQsImVtYWlsIjoia2VrbzExQGdtYWlsLmNvbSIsImlhdCI6MTY5OTczNDA5MCwiZXhwIjoxNzMxMjkxNjkwfQ.aUu-MBLdwlsETJtQu0bMc98smHiAkPKgN0qlshHm2KI"
+        }
+      }).subscribe(
         (data: any) => {
           console.log(data);
+          this.currentAppointments.push(data);
         },
         (error) => {
           console.error("Error:", error);

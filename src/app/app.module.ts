@@ -13,7 +13,6 @@ import {AppointmentComponent} from "./Components/appointment/appointment.compone
 import {HomepatientComponent} from './Components/homepatient/homepatient.component';
 import {ChoosedoctorComponent} from './Components/homepatient/choosedoctor/choosedoctor.component';
 import {ViewAppointmentComponent} from './Components/homepatient/view-appointment/view-appointment.component';
-import {ListofdoctorsComponent} from './Components/homepatient/listofdoctors/listofdoctors.component';
 import {SlotComponent} from './Components/slot/slot.component';
 
 
@@ -28,7 +27,6 @@ import {SlotComponent} from './Components/slot/slot.component';
     HomepatientComponent,
     ChoosedoctorComponent,
     ViewAppointmentComponent,
-    ListofdoctorsComponent,
     SlotComponent,
 
   ],
