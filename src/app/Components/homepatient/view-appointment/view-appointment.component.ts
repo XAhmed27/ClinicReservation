@@ -22,9 +22,10 @@ export class ViewAppointmentComponent {
   }
 
   getAppointment() {
+    const token=localStorage.getItem('token');
     this.http.get<GetAppointmentResponseBody>(UserUtils.baseUrl + "/reserve/view", {
       params: {
-        "Authorization": "hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoia2Vrb0BnbWFpbC5jb20iLCJpYXQiOjE2OTk3MjA1NjQsImV4cCI6MTczMTI3ODE2NH0.yv5g0335bJpPf5zGO3e0iYwgktUBOhkhEEKpto87Cu4"
+        "Authorization": "hamada" + token
       }
     }).subscribe(
       (data) => {
@@ -37,12 +38,13 @@ export class ViewAppointmentComponent {
 
   cancelAppointment(appointment: Result): void {
     console.log(appointment.id);
+    const token=localStorage.getItem('token');
 
     this.http.put(UserUtils.baseUrl+'/reserve/cancel?', {
       "id": appointment.id
     }, {
       params: {
-        "Authorization": "hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoia2Vrb0BnbWFpbC5jb20iLCJpYXQiOjE2OTk3MjM1MzksImV4cCI6MTczMTI4MTEzOX0.P-Tnz2ZVx7Z7Q3jlro894hd3GlQOevNuhkXTdTf-l94",
+        "Authorization": "hamada" +token
       }
     }).subscribe(
       (data)=>{

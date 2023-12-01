@@ -17,7 +17,7 @@ export class AppointmentComponent {
   selectedEndTime?: string;
 */
   i?:number;
-  private apiUrl = 'http://localhost:3000/slot';
+  private apiUrl = 'http://localhost:8000/slot';
   date?:string;
   hours?:string;
   time?:string;
@@ -29,14 +29,14 @@ export class AppointmentComponent {
   addAppointment() {
 
     // Implement the logic to add a new appointment with selected time
-    const newAppointment = {
+    const newAppointment:DoctorSlotResponse = {
       date: this.selectedDate,
-      Hours: this.selectedHours,
+      hours: this.selectedHours,
 
     };
     this.newAppointments.push(newAppointment);
 
-    this.selectedDate = '';
+    this.selectedDate ='';
     this.selectedHours = '';
   }
   EditAppointment(appointment: any) {
@@ -51,7 +51,7 @@ export class AppointmentComponent {
     }
   }
 
-  selectAppointment(appointment: any) {
+  selectAppointment(appointment: DoctorSlotResponse) {
     this.selectedAppointment = appointment;
   }
 
@@ -62,16 +62,16 @@ export class AppointmentComponent {
       this.currentAppointments.splice(i, 1);
     }
   }
-  confirmAppointment() {
+  /*confirmAppointment() {
 
 
     // update the selected appointment with the selected date
     if (this.selectedDate) {
       this.selectedAppointment.date = this.selectedDate;
       this.selectedAppointment.startTime=this.selectedHours;
-/*
+/!*
       this.selectedAppointment.endTime=this.selectedEndTime;
-*/
+*!/
       // fix the confliction with the edit function
       const index = this.currentAppointments.indexOf(this.selectedAppointment);
       if (index !== -1) {
@@ -82,33 +82,35 @@ export class AppointmentComponent {
       this.selectedDate = '';
       this.selectedHours = '';
     }
-  }
+  }*/
+
   addSlot() {
 
 
 
     // Get the token from localStorage or any other secure storage
     const token = localStorage.getItem('token');
-
+    console.log(token);
     // Check if the token is available
     if (token) {
       // Set the Authorization header with the token
       const headers = new HttpHeaders().set('Authorization', token);
 
-
+      console.log("enter")
       console.log(this.selectedDate);
       console.log(this.selectedHours);
-      console.log(this.selectedAppointment);
+      // console.log(this.selectedAppointment);
+      console.log("enter")
       // Make the HTTP request with headers
       this.http.post(this.apiUrl, {
         "date":this.selectedDate,
         "hours": this.selectedHours,
       }, {
         params:{
-          "Authorization":"hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NDQsImVtYWlsIjoia2VrbzExQGdtYWlsLmNvbSIsImlhdCI6MTY5OTczNDA5MCwiZXhwIjoxNzMxMjkxNjkwfQ.aUu-MBLdwlsETJtQu0bMc98smHiAkPKgN0qlshHm2KI"
+          "Authorization":"hamada" + token
         }
       }).subscribe(
-        (data: any) => {
+        (data) => {
           console.log(data);
           this.currentAppointments.push(data);
         },
@@ -120,4 +122,6 @@ export class AppointmentComponent {
       console.error("Token not available. Please log in.");
     }
   }
+
+
 }

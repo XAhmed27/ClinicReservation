@@ -9,7 +9,7 @@ import {User} from "../../Models/user";
 })
 export class SignupComponent {
   user?: User;
-  private apiUrl = 'http://localhost:3000/auth'; // Replace with your actual API endpoint
+  private apiUrl = 'http://localhost:8000/auth'; // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) {
     this.user = new User();

@@ -31,7 +31,7 @@ export class ChoosedoctorComponent {
 
 
   loadDoctors(): void {
-    this.http.get<GetAllDoctorsResponseBody>('http://localhost:3000/user/doctors').subscribe(
+    this.http.get<GetAllDoctorsResponseBody>('http://localhost:8000/user/doctors').subscribe(
       (data) => {
         console.log(data);
         this.doctors = data.result;
@@ -59,12 +59,15 @@ export class ChoosedoctorComponent {
   }
 
   reserveSlot(slot: Slot) {
+    const token=localStorage.getItem('token');
+
+
 
     this.http.post(UserUtils.baseUrl + "/reserve", {
       "keys": slot.key
     },{
       params:{
-        "Authorization":"hamadaeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzYsImVtYWlsIjoia2Vrb0BnbWFpbC5jb20iLCJpYXQiOjE2OTk3MjUxMDIsImV4cCI6MTczMTI4MjcwMn0.Wq44REY-m0kE6Ku2Fs3g_ADnkfImihYBZ-NliuMopEQ"
+        "Authorization":"hamada" + token
       }
     }).subscribe(
       (data)=>{

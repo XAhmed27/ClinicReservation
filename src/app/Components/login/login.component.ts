@@ -14,7 +14,7 @@ export class LoginComponent {
   password?:string;
   role?:string;
   user?: User;
-  private apiUrl = 'http://localhost:3000/auth/login';
+  private apiUrl = 'http://localhost:8000/auth/login';
   static token:string= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTksImVtYWlsIjoiYWhtZWRlbHRvbnkyNUBnbWFpbC5jb20iLCJpYXQiOjE2OTk1OTUyNjIsImV4cCI6MTczMTE1Mjg2Mn0.xn_OLPLQCfqdlgTu-hkcPAnbAaQC1agqzgg2xH5031c";
   constructor(private http: HttpClient,private route:Router) {
     this.role = "patient";
@@ -39,7 +39,6 @@ export class LoginComponent {
         }else {
           this.route.navigate(['/patient'])
         }
-
 
       }
     );

@@ -1,3 +1,3 @@
 export class UserUtils {
-  static baseUrl = "http://localhost:3000"
+  static baseUrl = "http://localhost:8000"
 }
